@@ -1,1 +1,20 @@
-// TODO
+.loadMoreBtn {
+    background-color: transparent;
+    border: none;
+
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+
+    text-align: justify;
+
+    color: var(--highlight);
+
+    padding: 10px 0;
+
+    cursor: pointer;
+
+    margin-top: 20px;
+}
