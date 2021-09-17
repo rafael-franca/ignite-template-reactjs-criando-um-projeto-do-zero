@@ -1,1 +1,61 @@
-// TODO
+.title {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 58px;
+  text-align: justify;
+  letter-spacing: -0.5px;
+  padding-top: 80px;
+  padding-bottom: 24px;
+  color: var(--heading);
+}
+
+.banner {
+  padding-bottom: 80px;
+}
+
+.subtitle {
+  font-size: 18px;
+  line-height: 22px;
+  text-align: justify;
+  padding-bottom: 16px;
+  color: var(--body);
+}
+
+.containerMeta {
+  display: flex;
+}
+
+.meta {
+  display: flex;
+  margin-bottom: 4rem;
+
+  p,
+  time {
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--info);
+    margin-left: 10px;
+  }
+
+  + .meta {
+    margin-left: 30px;
+  }
+}
+
+.content {
+  color: var(--body);
+
+  strong {
+    font-size: 2rem;
+    line-height: 50px;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 1.5rem auto;
+    text-align: justify;
+    text-justify: inter-word;
+    line-height: 1.5rem;
+    font-size: 1.125rem;
+  }
+}
