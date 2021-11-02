@@ -10,6 +10,7 @@ import Post from '../components/Post';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
+import ExitPreviewButton from '../components/ExitPreviewButton';
 
 interface Post {
     uid?: string;
@@ -28,9 +29,10 @@ interface PostPagination {
 
 interface HomeProps {
     postsPagination: PostPagination;
+    preview: boolean;
 }
 
-export default function Home({ postsPagination: { results, next_page } }: HomeProps) {
+export default function Home({ postsPagination: { results, next_page }, preview }: HomeProps) {
     const [posts, setPosts] = useState<Post[]>(results);
     const [nextPage, setNextPage] = useState<string>(next_page);
 
@@ -66,6 +68,8 @@ export default function Home({ postsPagination: { results, next_page } }: HomePr
                 <title>spacetraveling</title>
             </Head>
 
+            <ExitPreviewButton preview={preview} />
+
             {posts.map(post => <Post {...post} key={post.uid} />)}
 
             {nextPage && <button className={styles.loadMoreBtn} type='button' onClick={handleLoadMorePosts}>
@@ -75,14 +79,15 @@ export default function Home({ postsPagination: { results, next_page } }: HomePr
     )
 }
 
-export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps<HomeProps> = async ({ preview = false, previewData }) => {
     const prismic = getPrismicClient();
 
     const response = await prismic.query([
         Prismic.predicates.at('document.type', 'posts')
     ], {
         fetch: ['posts.title', 'posts.subtitle', 'posts.author'],
-        pageSize: 1
+        pageSize: 1,
+        ref: previewData?.ref ?? null,
     });
 
     const posts = response.results.map(post => {
@@ -102,7 +107,8 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
             postsPagination: {
                 results: posts,
                 next_page: response.next_page
-            }
+            },
+            preview
         }
     }
 };
